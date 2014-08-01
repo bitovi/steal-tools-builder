@@ -31,7 +31,7 @@ Easily build and export a project into various formats.
          
          // regular expressions, functions that return true, strings.  These 
          // modules will not be written out or included in modules.
-         ignores: [{core: true}, /can\/util/],
+         ignore: [{core: true}, /can\/util/],
          
          // the output format: "steal","global","amd"
          format: ""
