@@ -1,0 +1,33 @@
+{
+  "name": "steal-tools-builder",
+  "description": "Easily build and export a project into various formats.",
+  "version": "0.0.1",
+  "author": {
+    "name": "Bitovi",
+    "email": "contact@bitovi.com",
+    "web": "http://bitovi.com/"
+  },
+  "dependencies": {
+    "steal-tools": "git://github.com/bitovi/steal-tools#master",
+    "lodash": "2.4.1"
+  },
+  "devDependencies": {
+    "connect": "^2.14.4",
+    "mocha": "1.18.2",
+    "rimraf": "2.1",
+    "zombie": "1.4.1"
+  },
+  "main": "index",
+  "homepage": "git://github.com/bitovi/steal-tools-builder.git",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bitovi/steal-tools-builder.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/mit-license.php"
+    }
+  ],
+  "scripts": {}
+}
