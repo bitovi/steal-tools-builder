@@ -56,14 +56,14 @@ describe("builder", function(){
 				},
 				"outputs": {
 					"basics standalone": {
-						modules: ["basics/module/module"],
+						eachModule: ["basics/module/module"],
 						out: function(){
 							return __dirname+"/out/basics.js"
 						},
 						minify: false
 					},
 					"pluginify without basics": {
-						modules: ["pluginify/pluginify"],
+						eachModule: ["pluginify/pluginify"],
 						ignore: ["basics/module/module"],
 						out: function(){
 							return __dirname+"/out/pluginify.js"

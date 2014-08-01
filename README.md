@@ -21,10 +21,12 @@ Easily build and export a project into various formats.
      // what should be exported from this graph
      "outputs" : {
        OUTPUT_NAME: {
+         // writes out all the modules together.
+         modules: ["name"]
   
          // Writes out each module with its dependencies minus ignore.
          // Modules can be specified by name, or by an object comparitor
-         modules: ["name", {core: true}]
+         eachModule: ["name", {core: true}]
          
          // writes out each module and its dependencies individually. Does not write out minus dependencies.
          graphs: [""],

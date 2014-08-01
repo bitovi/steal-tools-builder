@@ -38,7 +38,7 @@ module.exports = function(configuration, modules, defaults, cb){
 	});
 	
 	var modulesMap = _.indexBy(modules,"moduleName");
-	
+
 	var fileWrites = 0,
 		errors = [],
 		writeFile = function(filename, data){
@@ -57,7 +57,19 @@ module.exports = function(configuration, modules, defaults, cb){
 	// gets the next configuration
 	var nextConfiguration = function(){
 		var config = configurations.shift(),
-			pluginify;
+			pluginify,
+			pluginifyAndWriteOut = function(moduleName, out, extraOptions){
+				var result = pluginify(moduleName, _.assign(extraOptions||{},out.output) ),
+					filePath;
+				
+				if(typeof out.output.out === "string") {
+					filePath = out.output.out;
+				} else {
+					filePath = out.output.out(moduleName, modulesMap[moduleName]);
+				}
+				
+				writeFile(filePath, result);
+			};
 		if(!config) {
 			return;
 		}
@@ -66,28 +78,32 @@ module.exports = function(configuration, modules, defaults, cb){
 		
 		var processOutput = function(out){
 			console.log("OUTPUT "+out.name);
-			if(out.output.modules) {
+			
+			if(out.output.eachModule) {
 				var mods;
-				if(Array.isArray( out.output.modules) ) {
-					mods = out.output.modules;
+				if(Array.isArray( out.output.eachModule) ) {
+					mods = out.output.eachModule;
 				} else {
-					mods = _.map( _.where(modules, out.output.modules), "name");
+					mods = _.map( _.where(modules, out.output.eachModule), "moduleName");
 				}
 				mods.forEach(function(mod){
-					var result = pluginify(mod, out.output);
-					var filePath = out.output.out(mod, modulesMap[mod]);
-					writeFile(filePath, result);
+					pluginifyAndWriteOut(mod, out);
 				});
-			} else {
+			} else if(out.ouput.graphs){
 				var mods = out.output.graphs;
 				mods.forEach(function(mod){
 					stealTools.graph.each(pluginify.graph, function(name, node){
-						var result = pluginify(name, _.assign({ignoreAllDependencies: true},out.output) );
-						var filePath = out.output.out(mod, modulesMap[mod]);
-						writeFile(filePath, result);
+						pluginifyAndWriteOut(mod, out, {ignoreAllDependencies: true});
 					});
-				});
-				
+				});	
+			} else {
+				var mods;
+				if(Array.isArray( out.output.modules) ) {
+					mods = out.output.modules;
+				} else if(out.output.modules){
+					mods = _.map( _.where(modules, out.output.eachModules), "moduleName");
+				}
+				pluginifyAndWriteOut(mods, out);
 			}
 			
 			var result = pluginify(out.output.modules, out.output);
@@ -96,10 +112,13 @@ module.exports = function(configuration, modules, defaults, cb){
 		stealTools.pluginifier(config.configuration.graph.system, config.configuration.graph.options).then(function(configPluginify){
 			pluginify = configPluginify;
 			config.configuration.outputs.forEach(processOutput);
-		},function(e){
+		})["catch"](function(e){
 			cb(e);
 		});
 	};
 	
 	nextConfiguration();
 };
+
+
+
