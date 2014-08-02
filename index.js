@@ -67,14 +67,14 @@ module.exports = function(configuration, modules, defaults, cb){
 				} else {
 					filePath = out.output.out(moduleName, modulesMap[moduleName]);
 				}
-				
+				console.log(">  "+filePath);
 				writeFile(filePath, result);
 			};
 		if(!config) {
 			return;
 		}
 		
-		console.log("LOADING "+config.name);
+		console.log("CONFIGURATION "+config.name);
 		
 		var processOutput = function(out){
 			console.log("OUTPUT "+out.name);
