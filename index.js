@@ -21,7 +21,7 @@ var mergeModules = function(items, modules){
 var addDefaults = function(name, obj, defaults){
 	var parts = name.match(/ ([\w\+]+)$/);
 	if(parts) {
-		parts.replace(/\+(\w+)/g,function(whole, part){
+		parts[1].replace(/\+(\w+)/g,function(whole, part){
 			if(defaults[part]);
 			_.assign(obj, defaults[part]);
 		});
