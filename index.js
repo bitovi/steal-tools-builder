@@ -128,6 +128,8 @@ module.exports = function(configuration, modules, defaults, cb){
 		stealTools.pluginifier(config.configuration.graph.system, config.configuration.graph.options).then(function(configPluginify){
 			pluginify = configPluginify;
 			config.configuration.outputs.forEach(processOutput);
+			
+			nextConfiguration();
 		})["catch"](function(e){
 			cb(e);
 		});
