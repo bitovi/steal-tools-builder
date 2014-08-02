@@ -10,7 +10,7 @@ var mergeModules = function(items, modules){
 		item = items[i];
 		if(typeof item === "object" && !(item instanceof RegExp) ) {
 			var moduleNames = _.map( _.where(modules, item), "moduleName");
-			items.splice.apply(items,[i,0].concat(moduleNames));
+			items.splice.apply(items,[i,1].concat(moduleNames));
 			i = i + moduleNames.length;
 		} else {
 			i++;
