@@ -9,14 +9,14 @@
   },
   "dependencies": {
     "steal-tools": "git://github.com/bitovi/steal-tools#master",
-    "lodash": "2.4.1"
+    "lodash": "2.4.1",
+    "fs-extra" :"~0.8.1"
   },
   "devDependencies": {
     "connect": "^2.14.4",
     "mocha": "1.18.2",
     "rimraf": "2.1",
-    "zombie": "1.4.1",
-    "fs-extra" :"~0.8.1"
+    "zombie": "1.4.1"
   },
   "main": "index",
   "homepage": "git://github.com/bitovi/steal-tools-builder.git",
