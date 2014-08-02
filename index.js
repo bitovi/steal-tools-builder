@@ -106,7 +106,7 @@ module.exports = function(configuration, modules, defaults, cb){
 			} else if(out.output.graphs){
 				var mods = out.output.graphs;
 				stealTools.graph.each(pluginify.graph, mods, function(name, node){
-					pluginifyAndWriteOut(mod, out, {ignoreAllDependencies: true});
+					pluginifyAndWriteOut(name, out, {ignoreAllDependencies: true});
 				});
 			} else {
 				var mods;
