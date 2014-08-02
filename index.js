@@ -105,8 +105,13 @@ module.exports = function(configuration, modules, defaults, cb){
 				});
 			} else if(out.output.graphs){
 				var mods = out.output.graphs;
+				
+				var ignores = stealTools.pluginifier.getAllIgnores(out.output.ignore, pluginify.graph);
+				
 				stealTools.graph.each(pluginify.graph, mods, function(name, node){
-					pluginifyAndWriteOut(name, out, {ignoreAllDependencies: true});
+					if(!stealTools.pluginifier.matches(ignores, name)) {
+						pluginifyAndWriteOut(name, out, {ignoreAllDependencies: true});
+					}
 				});
 			} else {
 				var mods;
