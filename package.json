@@ -15,7 +15,8 @@
     "connect": "^2.14.4",
     "mocha": "1.18.2",
     "rimraf": "2.1",
-    "zombie": "1.4.1"
+    "zombie": "1.4.1",
+    "fs-extra" :"~0.8.1"
   },
   "main": "index",
   "homepage": "git://github.com/bitovi/steal-tools-builder.git",

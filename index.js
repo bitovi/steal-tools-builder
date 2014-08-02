@@ -1,7 +1,7 @@
 var stealTools = require("steal-tools");
-var fs = require('fs');
 var _ = require('lodash');
-
+var	fs = require('fs-extra');
+var path = require('path');
 
 var mergeModules = function(items, modules){
 	var i = 0,
@@ -45,15 +45,27 @@ module.exports = function(configuration, modules, defaults, cb){
 		errors = [],
 		writeFile = function(filename, data){
 			fileWrites++;
-			fs.writeFile(filename, data, function(err){
+			fs.mkdirs(path.dirname(filename), function(err){
 				if(err) {
 					errors.push(err);
-				}
-				fileWrites--;
-				if(fileWrites === 0) {
-					cb(errors.length ? errors: undefined);
+					fileWrites--;
+					if(fileWrites === 0) {
+						cb(errors.length ? errors: undefined);
+					}
+				} else {
+					fs.writeFile(filename, data, function(err){
+						if(err) {
+							errors.push(err);
+						}
+						fileWrites--;
+						if(fileWrites === 0) {
+							cb(errors.length ? errors: undefined);
+						}
+					});
 				}
 			});
+			
+			
 		};
 	
 	// gets the next configuration
