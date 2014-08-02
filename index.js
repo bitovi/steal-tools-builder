@@ -24,7 +24,9 @@ module.exports = function(configuration, modules, defaults, cb){
 		config.outputs = _.map(config.outputs, function(output, name){
 			// merge modules and graphs
 			mergeModules(output.modules || [], modules);
+			mergeModules(output.eachModule || [], modules);
 			mergeModules(output.graphs || [], modules);
+			mergeModules(output.ignore || [], modules);
 			return {
 				name: name,
 				output: output
