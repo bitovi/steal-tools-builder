@@ -106,7 +106,6 @@ module.exports = function(configuration, modules, defaults, cb){
 				pluginifyAndWriteOut(mods, out);
 			}
 			
-			var result = pluginify(out.output.modules, out.output);
 		};
 		
 		stealTools.pluginifier(config.configuration.graph.system, config.configuration.graph.options).then(function(configPluginify){
