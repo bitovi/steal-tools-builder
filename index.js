@@ -105,11 +105,9 @@ module.exports = function(configuration, modules, defaults, cb){
 				});
 			} else if(out.output.graphs){
 				var mods = out.output.graphs;
-				mods.forEach(function(mod){
-					stealTools.graph.each(pluginify.graph, function(name, node){
-						pluginifyAndWriteOut(mod, out, {ignoreAllDependencies: true});
-					});
-				});	
+				stealTools.graph.each(pluginify.graph, mods, function(name, node){
+					pluginifyAndWriteOut(mod, out, {ignoreAllDependencies: true});
+				});
 			} else {
 				var mods;
 				if(Array.isArray( out.output.modules) ) {
