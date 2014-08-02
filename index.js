@@ -89,7 +89,7 @@ module.exports = function(configuration, modules, defaults, cb){
 				mods.forEach(function(mod){
 					pluginifyAndWriteOut(mod, out);
 				});
-			} else if(out.ouput.graphs){
+			} else if(out.output.graphs){
 				var mods = out.output.graphs;
 				mods.forEach(function(mod){
 					stealTools.graph.each(pluginify.graph, function(name, node){
