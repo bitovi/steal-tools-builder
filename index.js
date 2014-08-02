@@ -18,15 +18,29 @@ var mergeModules = function(items, modules){
 	}
 };
 
+var addDefaults = function(name, obj, defaults){
+	var parts = name.match(/ ([\w\+]+)$/);
+	if(parts) {
+		parts.replace(/\+(\w+)/g,function(whole, part){
+			if(defaults[part]);
+			_.assign(obj, defaults[part]);
+		});
+	}
+};
+
 module.exports = function(configuration, modules, defaults, cb){
 	var configurations = _.map(configuration,function(config, name){
 		
 		config.outputs = _.map(config.outputs, function(output, name){
+			
+			addDefaults(name, output, defaults || {});
 			// merge modules and graphs
 			mergeModules(output.modules || [], modules);
 			mergeModules(output.eachModule || [], modules);
 			mergeModules(output.graphs || [], modules);
 			mergeModules(output.ignore || [], modules);
+			
+			
 			return {
 				name: name,
 				output: output
