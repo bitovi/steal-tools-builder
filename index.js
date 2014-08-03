@@ -95,17 +95,17 @@ module.exports = function(configuration, modules, defaults, cb){
 				} else {
 					filePath = out.output.out(moduleName, modulesMap[moduleName]);
 				}
-				console.log(">  "+filePath);
+				console.log("  > "+filePath);
 				writeFile(filePath, result);
 			};
 		if(!config) {
 			return;
 		}
 		
-		console.log("CONFIGURATION "+config.name);
+		console.log("CONFIGURATION: "+config.name);
 		
 		var processOutput = function(out){
-			console.log("OUTPUT "+out.name);
+			console.log("  OUTPUT: "+out.name);
 			
 			if(out.output.eachModule) {
 				var mods;
